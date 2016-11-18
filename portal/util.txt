@@ -1,0 +1,5 @@
+time scrapy crawl portalinmobiliario -o corr.csv -t csv
+
+time scrapy crawl portalinfo -o corredoras-contact-info-20160311.csv -t csv
+
+time scrapy crawl chileautosinfo -o chileautos-ejemplo.csv -t csv

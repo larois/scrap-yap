@@ -22,3 +22,9 @@ class PortalInfo(scrapy.Item):
     inmo_url_view = scrapy.Field()
     inmo_contact = scrapy.Field()
     pass
+
+class ChileAutosInfo(scrapy.Item):
+    name = scrapy.Field()
+    url = scrapy.Field()
+    total_ads = scrapy.Field()
+    pass
