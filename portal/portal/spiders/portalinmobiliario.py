@@ -60,25 +60,3 @@ class PortalinmobiliarioSpider(scrapy.Spider):
         item["commune_url"] = response.meta['commune_url']
         item["commune_total_ads"] = totals[0]
         return item
-
-
-
-"""
-        hxs = HtmlXPathSelector(response)
-
-        next_page = hxs.select("//div[@class='pagination']/a[@class='next_page']/@href").extract()
-        if next_page:
-            yield Request(next_page[0], self.parse)
-
-        posts = hxs.select("//div[@class='post']")
-        items = []
-        for post in posts:
-            item = ScrapySampleItem()
-            item["title"] = post.select("div[@class='bodytext']/h2/a/text()").extract()
-            item["link"] = post.select("div[@class='bodytext']/h2/a/@href").extract()
-            item["content"] = post.select("div[@class='bodytext']/p/text()").extract()
-            items.append(item)
-        for item in items:
-            yield item
-        pass
-"""

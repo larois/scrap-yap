@@ -14,13 +14,13 @@ class PortalinfoSpider(scrapy.Spider):
     )
     
     def parse(self, response):
-        num_items = response.css("#ContentPlaceHolder1_lblNumeroCorredorasPresentes font::text").extract()
+        num_items = response.css("#ContentPlaceHolder1_lblNumeroCorredorasPresentes ::text").extract()
         total_pages = float(num_items[0]) / 15.0
         total_pages = int(math.ceil(total_pages)) + 1
         print("total pages: {0}".format(total_pages))
         urls = ['http://www.portalinmobiliario.com/empresas/corredoraspresentes.aspx?p=%d' %(n) for n in range(1, total_pages)]
         for url in urls:
-            yield Request(url, callback = self.parseListing)
+            yield Request(url, callback=self.parseListing)
 
     def parseListing(self, response):
         for constructora in response.css("tr[id*=ContentPlaceHolder1_ListViewCorredorasPresentes_ctr] td"):
@@ -37,24 +37,3 @@ class PortalinfoSpider(scrapy.Spider):
         item["inmo_contact"] = contact
         return item
 
-
-
-"""
-        hxs = HtmlXPathSelector(response)
-
-        next_page = hxs.select("//div[@class='pagination']/a[@class='next_page']/@href").extract()
-        if next_page:
-            yield Request(next_page[0], self.parse)
-
-        posts = hxs.select("//div[@class='post']")
-        items = []
-        for post in posts:
-            item = ScrapySampleItem()
-            item["title"] = post.select("div[@class='bodytext']/h2/a/text()").extract()
-            item["link"] = post.select("div[@class='bodytext']/h2/a/@href").extract()
-            item["content"] = post.select("div[@class='bodytext']/p/text()").extract()
-            items.append(item)
-        for item in items:
-            yield item
-        pass
-"""
